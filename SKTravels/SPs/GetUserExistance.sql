@@ -1,22 +1,26 @@
 -- =======================================================
 -- Author:		<Selvakumar Raman>
--- Create date: <17/11/2021>
+-- Create date: <15/01/2022>
 -- Description:	<It is used to get the user existance>
 -- =======================================================
 DROP PROCEDURE IF EXISTS dbo.GetUserExistance
 GO
 CREATE PROCEDURE dbo.GetUserExistance
 	
-	@CurrentUserName VARCHAR(100),
-	@PhoneNumber VARCHAR(20),
-	@Email VARCHAR(100)
+	@Email VARCHAR(200)
 AS
 BEGIN
 
 BEGIN TRY
 	
-	 ;WITH temp_users AS(SELECT * FROM dbo.AspNetUsers WHERE UserName<>@CurrentUserName) 
-     SELECT 1 AS RecordExists FROM temp_users WHERE Email = @Email or PhoneNumber=@PhoneNumber;
+	 IF EXISTS(SELECT '1' FROM dbo.Users WHERE Email=@Email)
+	 BEGIN
+		SELECT 1 AS 'Out';
+	 END
+	 ELSE
+	 BEGIN
+		SELECT 0 AS 'Out';
+	 END
 
 END TRY
 

@@ -16,6 +16,7 @@ CREATE TABLE dbo.Users
 GO
 
 ALTER TABLE dbo.Users ADD UniqueToken VARCHAR(200);
+ALTER TABLE dbo.Users ADD UserState VARCHAR(100)
 GO
 
 -------------------------------------------------------------------------------------

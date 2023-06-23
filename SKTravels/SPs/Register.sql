@@ -9,6 +9,7 @@ CREATE PROCEDURE dbo.Register
 
 	@FullName VARCHAR(100),
 	@Email VARCHAR(100),
+	@UserState VARCHAR(100),
 	@PasswordHash VARBINARY(1000),
 	@PasswordSalt VARBINARY(1000),
     @IsEmailSent INT
@@ -19,8 +20,8 @@ BEGIN
 
 BEGIN TRY
 	
-	INSERT INTO dbo.Users(FullName,Email,PasswordHash,PasswordSalt,IsEmailSent)
-	VALUES (@FullName,@Email,@PasswordHash,@PasswordSalt,@IsEmailSent);
+	INSERT INTO dbo.Users(FullName,Email,PasswordHash,PasswordSalt,IsEmailSent,UniqueToken,UserState)
+	VALUES (@FullName,@Email,@PasswordHash,@PasswordSalt,@IsEmailSent,NULL,@UserState);
 
 	SET @UserID = SCOPE_IDENTITY();
 	SELECT @UserID AS 'UserID';
